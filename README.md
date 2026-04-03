@@ -5,7 +5,7 @@ Authorized internal lab only. Includes **placeholder** scanners (`run`) and an o
 ## Clone (GitHub)
 
 ```bash
-git clone https://github.com/<your-org>/hexstrike_lab.git
+git clone https://github.com/ericmao/hexstrike_lab.git
 cd hexstrike_lab
 ```
 
