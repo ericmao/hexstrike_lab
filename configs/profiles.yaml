@@ -1,0 +1,49 @@
+# Authorized lab only — tune ports/timeouts per environment
+
+profiles:
+  quick:
+    name: quick
+    steps:
+      - adapter: nmap
+        timeout_sec: 60
+        retries: 0
+        options:
+          ports: "22,80,443"
+          timing: "3"
+          version_intensity: 3
+
+  web:
+    name: web
+    steps:
+      - adapter: nmap
+        timeout_sec: 120
+        retries: 1
+        options:
+          ports: "80,443,8080"
+          timing: "3"
+          version_intensity: 5
+      - adapter: nikto
+        timeout_sec: 300
+        retries: 0
+        options:
+          ssl: true
+          port: 443
+          maxtime_sec: 120
+
+  full:
+    name: full
+    steps:
+      - adapter: nmap
+        timeout_sec: 300
+        retries: 1
+        options:
+          ports: "1-1024"
+          timing: "4"
+          version_intensity: 5
+      - adapter: nikto
+        timeout_sec: 600
+        retries: 1
+        options:
+          ssl: true
+          port: 443
+          maxtime_sec: 300

@@ -1,0 +1,20 @@
+# Authorized lab use only — placeholders
+lab:
+  name: "hexstrike_lab"
+  environment: "development"
+
+logging:
+  level: "INFO"
+  json_logs: true
+
+scanners:
+  network_discovery:
+    enabled: true
+    timeout_sec: 30
+  web_metadata:
+    enabled: true
+    timeout_sec: 30
+    use_tls: true
+
+output:
+  schema_version: "1.0.0"

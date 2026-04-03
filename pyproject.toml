@@ -1,0 +1,16 @@
+[project]
+name = "hexstrike_lab"
+version = "0.1.0"
+description = "Authorized lab security testing framework (placeholders + tool orchestration)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

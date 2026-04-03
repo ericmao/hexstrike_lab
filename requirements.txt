@@ -1,0 +1,4 @@
+PyYAML>=6.0.1
+jsonschema>=4.22.0
+python-json-logger>=2.0.7
+pytest>=8.0.0
