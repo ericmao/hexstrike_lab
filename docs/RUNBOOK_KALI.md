@@ -11,6 +11,22 @@ sudo apt install -y python3 python3-venv python3-pip make nmap nikto
 
 Optional: `git` for version control.
 
+### GitHub CLI (`gh`) — optional
+
+For `gh auth login` and `gh repo` commands:
+
+```bash
+sudo apt update && sudo apt install -y gh
+```
+
+If you installed `gh` manually to `~/.local/bin` (or a symlink from `/tmp`), ensure `~/.local/bin` is on `PATH`, then run:
+
+```bash
+gh auth login
+```
+
+**Note:** A symlink to `/tmp/.../gh` breaks after reboot; prefer `apt install gh` or copy the binary when disk space allows.
+
 ## Python virtual environment
 
 ```bash
