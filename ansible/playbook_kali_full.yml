@@ -37,9 +37,18 @@
       ansible.builtin.debug:
         msg: "{{ ollama_ver.stdout }}"
 
-    - name: Pull llama3 model (large download; models stored under connecting user)
+    - name: Pull llama3 model (needs outbound HTTPS + DNS to registry.ollama.ai)
       when: install_ollama | bool
       become: false
       ansible.builtin.command: ollama pull llama3
       register: ollama_pull
-      changed_when: true
+      failed_when: false
+      changed_when: ollama_pull.rc == 0
+
+    - name: Ollama pull outcome
+      when: install_ollama | bool
+      ansible.builtin.debug:
+        msg: >-
+          {{ 'OK: llama3 pull completed' if ollama_pull.rc | default(1) == 0
+          else 'WARN: ollama pull failed (fix lab DNS or proxy, then run: ollama pull llama3). RC=' ~ (ollama_pull.rc | string)
+          ~ ' stderr=' ~ (ollama_pull.stderr | default('') | truncate(400)) }}

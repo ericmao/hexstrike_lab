@@ -7,6 +7,8 @@
     hexstrike_lab_repo: "https://github.com/ericmao/hexstrike_lab.git"
     hexstrike_lab_dest: "{{ ansible_env.HOME }}/hexstrike_lab"
     hexstrike_lab_version: main
+    # Set true when the tree was synced by rsync or has local edits you want discarded.
+    hexstrike_lab_git_force: false
   tasks:
     - name: Install base packages
       become: true
@@ -25,6 +27,7 @@
         dest: "{{ hexstrike_lab_dest }}"
         version: "{{ hexstrike_lab_version }}"
         update: true
+        force: "{{ hexstrike_lab_git_force | bool }}"
 
     - name: Install Python dependencies into venv
       ansible.builtin.pip:
@@ -39,6 +42,7 @@
           - "-m"
           - "hexstrike_lab"
           - "--help"
+        chdir: "{{ hexstrike_lab_dest }}"
       register: hex_help
       changed_when: false
 
