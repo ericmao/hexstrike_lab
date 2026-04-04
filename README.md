@@ -248,7 +248,7 @@ Central files:
 
 - **`docs/CURSOR_PROMPT_PACK.md`** — Track A phases + Track B table and short prompts.
 - **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — when to give prompts; **Track B safety gates** for Lab08–11; **Track C** instructor notes.
-- **`docs/INSTRUCTOR_ANSWER_OUTLINE.md`** — **instructor-only** expected deliverables, pass/distinction cues, oral exam prompts (not a student answer key).
+- **`docs/INSTRUCTOR_ANSWER_OUTLINE.md`** — **instructor-only** rubric index + checklist; per-lab outlines in **`docs/instructor/`** ([`docs/instructor/README.md`](docs/instructor/README.md)).
 
 ---
 
@@ -257,7 +257,8 @@ Central files:
 - [docs/RUNBOOK_KALI.md](docs/RUNBOOK_KALI.md) — Kali setup and examples
 - [docs/DEPLOY_KALI.md](docs/DEPLOY_KALI.md) — rsync / Ansible deploy; Ollama+llama3; `scripts/verify_kali_lab_env.sh`; coexistence with hexstrike-ai MCP
 - [docs/TRACK_C_PENTEST.md](docs/TRACK_C_PENTEST.md) — optional pentest depth module (P1–P5)
-- [docs/INSTRUCTOR_ANSWER_OUTLINE.md](docs/INSTRUCTOR_ANSWER_OUTLINE.md) — instructor-only rubric / answer outline
+- [docs/INSTRUCTOR_ANSWER_OUTLINE.md](docs/INSTRUCTOR_ANSWER_OUTLINE.md) — instructor rubric index + checklist
+- [docs/instructor/README.md](docs/instructor/README.md) — per-lab instructor outlines (lab00–lab15)
 - [docs/EXECUTION_LAYER.md](docs/EXECUTION_LAYER.md) — adapters, safety defaults, extension points
 - [SECURITY.md](SECURITY.md) — responsible use
 

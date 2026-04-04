@@ -1,6 +1,6 @@
 # Instructor Prompt Guide
 
-**Answer outline & rubric (instructor-only):** [INSTRUCTOR_ANSWER_OUTLINE.md](INSTRUCTOR_ANSWER_OUTLINE.md)
+**Answer outline & rubric (instructor-only):** [INSTRUCTOR_ANSWER_OUTLINE.md](INSTRUCTOR_ANSWER_OUTLINE.md) · per-lab files in [instructor/](instructor/README.md)
 
 ## Teaching Strategy
 
