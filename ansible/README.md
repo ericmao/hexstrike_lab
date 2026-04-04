@@ -12,8 +12,20 @@ ansible-playbook -i inventory.ini playbook.yml --ask-pass
 **Full stack + Ollama (large download):**
 
 ```bash
-ansible-playbook -i inventory.ini playbook_kali_full.yml --ask-pass -e install_ollama=true
+ansible-playbook -i inventory.ini playbook_kali_full.yml --ask-pass --ask-become-pass -e install_ollama=true
 ```
+
+Default Kali VM often uses the **same password for SSH and sudo** (`kali`/`kali`). Non-interactive example (lab only):
+
+```bash
+ansible-playbook -i inventory.ini playbook_kali_full.yml \
+  -e ansible_ssh_pass=kali -e ansible_become_password=kali \
+  -e install_ollama=true -e hexstrike_lab_git_force=true
+```
+
+Use `hexstrike_lab_git_force=true` if the tree was previously synced with **rsync** and `git` reports local modifications.
+
+If **`ollama pull`** fails (DNS to `registry.ollama.ai`), fix lab resolver or proxy, then on Kali run `ollama pull llama3` manually; the playbook still exits **0** and prints a **WARN**.
 
 - `playbook.yml` — **git clone** `hexstrike_lab` + venv only.
 - `playbook_kali_full.yml` — imports `playbook.yml`, then optionally installs Ollama and runs `ollama pull llama3` as the SSH user.
