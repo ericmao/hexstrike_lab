@@ -238,22 +238,24 @@ Stdout prints a small JSON object with `status`, `run_id`, and `paths`.
 
 ## Lab learning materials
 
-Two tracks (see [`labs/README.md`](labs/README.md)):
+Two tracks plus optional **Track C** depth (see [`labs/README.md`](labs/README.md), [`docs/TRACK_C_PENTEST.md`](docs/TRACK_C_PENTEST.md)):
 
 - **Track A — `lab00` … `lab05`:** build and use **this** repo (`hexstrike_lab` CLI, adapters, pipeline, RFP/pentest YAML, evidence).
 - **Track B — `lab06` … `lab15`:** **[hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)** MCP + authorized lab scenarios, governance (RoE), evidence mapping, CI gates, and electives. **Not vendored here**; follow each `labs/labNN/cursor_prompts.md` **課程環境變體** if your course uses a different HexStrike CLI.
+- **Track C — optional:** AI-augmented **pentest** depth (P1–P5: recon, web/Burp, exploit narrative, attack chain, red-team automation framing) woven into Lab07–11; does **not** replace Track B naming.
 
 Central files:
 
 - **`docs/CURSOR_PROMPT_PACK.md`** — Track A phases + Track B table and short prompts.
-- **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — when to give prompts; **Track B safety gates** for Lab08–11.
+- **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — when to give prompts; **Track B safety gates** for Lab08–11; **Track C** instructor notes.
 
 ---
 
 ## Further documentation
 
 - [docs/RUNBOOK_KALI.md](docs/RUNBOOK_KALI.md) — Kali setup and examples
-- [docs/DEPLOY_KALI.md](docs/DEPLOY_KALI.md) — rsync / Ansible deploy; coexistence with hexstrike-ai MCP
+- [docs/DEPLOY_KALI.md](docs/DEPLOY_KALI.md) — rsync / Ansible deploy; Ollama+llama3; `scripts/verify_kali_lab_env.sh`; coexistence with hexstrike-ai MCP
+- [docs/TRACK_C_PENTEST.md](docs/TRACK_C_PENTEST.md) — optional pentest depth module (P1–P5)
 - [docs/EXECUTION_LAYER.md](docs/EXECUTION_LAYER.md) — adapters, safety defaults, extension points
 - [SECURITY.md](SECURITY.md) — responsible use
 

@@ -34,6 +34,12 @@ Uses **[hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)** (MCP + `hexstrike
 
 Full steps and prompts: [`labs/README.md`](../labs/README.md) and `labs/labNN/cursor_prompts.md`.
 
+### Track C — AI-Augmented Pentest (optional depth)
+
+**Not a fourth lab range:** Track C is a **cross-cutting** module (P1–P5) for deeper exploit mindset, Burp/chain/flag-style objectives, and MITRE mapping. It **does not rename** Track B (MCP). See [`docs/TRACK_C_PENTEST.md`](TRACK_C_PENTEST.md); Lab07–11 include **Track C 加強** sections.
+
+**Kali verification** after deploy: `bash scripts/verify_kali_lab_env.sh` (pytest, pipeline dry-run, Ollama/llama3, optional hexstrike `/health`). See [`docs/DEPLOY_KALI.md`](DEPLOY_KALI.md).
+
 ---
 
 ## General Rules

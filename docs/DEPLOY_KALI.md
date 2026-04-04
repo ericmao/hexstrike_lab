@@ -91,3 +91,50 @@ python3 hexstrike_server.py --port 8888
 ```
 
 Configure your MCP client `hexstrike_mcp.py` with `--server http://<kali-ip>:8888` as in upstream README.
+
+---
+
+## Ollama + `llama3` on Kali（Lab06 本機 LLM）
+
+On the **Kali VM** (after `hexstrike_lab` venv exists):
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull llama3
+ollama run llama3 "Reply with exactly: OK"
+```
+
+- First `pull` downloads several GB; use a wired lab network if possible.
+- Point **hexstrike-ai** / MCP to the **Ollama base URL** only as your upstream README specifies (often `http://127.0.0.1:11434`).
+
+**Ansible (same repo, optional Ollama):**
+
+```bash
+cd ansible
+ansible-playbook -i inventory.ini playbook_kali_full.yml --ask-pass -e install_ollama=true
+```
+
+---
+
+## One-shot verification on Kali（pytest + pipeline + Ollama + optional health）
+
+After deploy, **SSH into Kali** and run (repo already at `~/hexstrike_lab`):
+
+```bash
+bash ~/hexstrike_lab/scripts/verify_kali_lab_env.sh
+```
+
+- Runs **`pytest`** for this repo, **`hexstrike_lab pipeline`** dry-run into `/tmp/hexstrike_lab_verify_out`.
+- If **`ollama`** is missing: prints install hint; set `REQUIRE_OLLAMA=1` to **fail** until Ollama works.
+- If **`llama3`** is not listed: script runs `ollama pull llama3` then a short inference smoke test.
+- If **hexstrike-ai** listens on **8888**, reports `OK` for `/health`; otherwise skips.
+
+Override home layout:
+
+```bash
+export HEXSTRIKE_LAB_HOME="$HOME/hexstrike_lab"
+export VERIFY_OUTPUT_BASE=/tmp/my_verify_out
+bash "$HEXSTRIKE_LAB_HOME/scripts/verify_kali_lab_env.sh"
+```
+
+**Note:** Track B labs (MCP, DVWA, CTF) are **instructional**; this script validates **toolchain + Track A repo health** on the same machine you deploy to.

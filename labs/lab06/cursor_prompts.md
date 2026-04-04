@@ -8,7 +8,7 @@
 
 - 啟動 **hexstrike-ai** 後端（`hexstrike_server.py`）並確認 **health**。
 - 在 **Cursor／Claude Desktop** 等客戶端設定 **MCP**，使 `hexstrike_mcp.py` 能連到後端（參考上游 README 的 `args` 與埠號）。
-- （選修）搭配 **Ollama** 本機模型，理解「LLM 決策」與「工具執行」分層。
+- **必做（課程用 Kali）：** 安裝 **Ollama**，拉取並 smoke 測試 **`llama3`**，理解「LLM 決策」與「工具執行」分層。
 
 ## 授權與環境
 
@@ -21,7 +21,10 @@
 2. 啟動：`python3 hexstrike_server.py`（埠號依課程約定，常見 `8888`）。
 3. 驗證：`curl http://localhost:<port>/health`（或課程指定方式）。
 4. 設定 MCP：將 `hexstrike_mcp.py` 與 `--server http://localhost:<port>` 寫入客戶端設定（見上游 README「Claude Desktop / Cursor」小節）。
-5. （選）啟動 `ollama serve` 與本機模型，並確認客戶端使用的模型供應商與課程一致。
+5. **Ollama + llama3（Kali 上）：**  
+   `curl -fsSL https://ollama.com/install.sh | sh` → `ollama pull llama3` → `ollama run llama3 "Reply with exactly: OK"`。  
+   確認服務監聽（常見 `11434`）；若 hexstrike-ai 需接 Ollama，依**上游 README**設定 base URL。  
+6. 部署驗證（整機）：在 Kali 執行 repo 內 `bash scripts/verify_kali_lab_env.sh`（含 pytest、pipeline dry-run、ollama/llama3、可選 `8888/health`）。見 [docs/DEPLOY_KALI.md](../../docs/DEPLOY_KALI.md)。
 
 ## 觀察／除錯
 
@@ -30,7 +33,7 @@
 
 ## 驗收標準
 
-- 提交：**連線示意圖** + **health 成功截圖或 log** + 一段話說明各元件責任。
+- 提交：**連線示意圖** + **health 成功截圖或 log** + **`ollama list` 含 llama3** 與**一則** `ollama run llama3 …` 輸出節錄 + 一段話說明各元件責任。
 - 口試：說明與本 repo `python -m hexstrike_lab` **無 MCP** 的差異。
 
 ## 講師提醒

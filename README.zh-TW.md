@@ -232,22 +232,24 @@ stdout 另會印出含 `status`、`run_id`、`paths` 的小型 JSON。
 
 ## 實驗與教材
 
-雙軌說明見 [`labs/README.md`](labs/README.md)：
+雙軌＋選修 **Track C** 見 [`labs/README.md`](labs/README.md)、[`docs/TRACK_C_PENTEST.md`](docs/TRACK_C_PENTEST.md)：
 
 - **Track A（lab00 … lab05）：** 建構並使用**本儲存庫**之 `hexstrike_lab`（CLI、適配器、Pipeline、RFP／滲測 YAML、證據）。
 - **Track B（lab06 … lab15）：** 外部 **[hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)** MCP 與授權實驗情境、RoE、證據對照、CI gate、選修。**本 repo 未內嵌**該專案；若課程使用自訂 HexStrike CLI，請以各 `labs/labNN/cursor_prompts.md` 的 **課程環境變體**為準。
+- **Track C（選修）：** AI 輔助**滲透深度**模組（P1–P5），穿插於 Lab07–11；**不**取代 Track B 名稱。
 
 核心文件：
 
 - **`docs/CURSOR_PROMPT_PACK.md`** — Track A 階段 + Track B 表與短提示。
-- **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — 何時給提示；Lab08–11 **安全 gate**。
+- **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — 何時給提示；Lab08–11 **安全 gate**；Track C 講師備註。
 
 ---
 
 ## 延伸文件
 
 - [docs/RUNBOOK_KALI.md](docs/RUNBOOK_KALI.md) — Kali 安裝與範例
-- [docs/DEPLOY_KALI.md](docs/DEPLOY_KALI.md) — rsync／Ansible 部署；與 hexstrike-ai MCP 並存
+- [docs/DEPLOY_KALI.md](docs/DEPLOY_KALI.md) — rsync／Ansible 部署；Ollama／llama3；`scripts/verify_kali_lab_env.sh`；與 hexstrike-ai MCP 並存
+- [docs/TRACK_C_PENTEST.md](docs/TRACK_C_PENTEST.md) — 選修滲透加深模組（P1–P5）
 - [docs/EXECUTION_LAYER.md](docs/EXECUTION_LAYER.md) — 適配器、安全預設、擴充點
 - [SECURITY.md](SECURITY.md) — 負責任使用說明
 

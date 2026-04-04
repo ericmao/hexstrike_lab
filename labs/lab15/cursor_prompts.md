@@ -2,6 +2,8 @@
 
 **定位：** **選修模組**；依開課時數擇一或多個主題實作。與 [hexstrike-ai](https://github.com/0x4m4/hexstrike-ai) 能力清單對齊時需講師先行裁切工具範圍。
 
+**Track C（P5 — AI for Red Team 自動化）：** 優先對照 **15D**（MCP × pipeline）；其餘小題見 [docs/TRACK_C_PENTEST.md](../../docs/TRACK_C_PENTEST.md)。
+
 ---
 
 ## 學習目標（擇一）

@@ -1,0 +1,45 @@
+---
+# Full lab VM: hexstrike_lab + optional Ollama (llama3) for Lab06.
+# Usage:
+#   ansible-playbook -i inventory.ini playbook_kali_full.yml --ask-pass
+#   ansible-playbook -i inventory.ini playbook_kali_full.yml --ask-pass -e install_ollama=true
+- name: Deploy hexstrike_lab
+  ansible.builtin.import_playbook: playbook.yml
+
+- name: Optional Ollama and llama3 on Kali
+  hosts: kali_lab
+  vars:
+    install_ollama: false
+  tasks:
+    - name: Check if ollama is already installed
+      when: install_ollama | bool
+      ansible.builtin.command: which ollama
+      register: ollama_which
+      changed_when: false
+      failed_when: false
+
+    - name: Install Ollama via upstream script
+      when: install_ollama | bool and ollama_which.rc != 0
+      become: true
+      ansible.builtin.shell: set -euo pipefail && curl -fsSL https://ollama.com/install.sh | sh
+      args:
+        executable: /bin/bash
+      changed_when: true
+
+    - name: Ensure ollama service is available (user may need to log in again)
+      when: install_ollama | bool
+      ansible.builtin.command: ollama --version
+      register: ollama_ver
+      changed_when: false
+
+    - name: Show ollama version
+      when: install_ollama | bool
+      ansible.builtin.debug:
+        msg: "{{ ollama_ver.stdout }}"
+
+    - name: Pull llama3 model (large download; models stored under connecting user)
+      when: install_ollama | bool
+      become: false
+      ansible.builtin.command: ollama pull llama3
+      register: ollama_pull
+      changed_when: true

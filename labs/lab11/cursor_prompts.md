@@ -10,6 +10,12 @@
 - 產出 **Markdown 滲透報告**（手冊的 `/generate_report --format markdown` 若不可用，則由 MCP 對話生成或 Cursor 匯出）。
 - 另交 **半頁對照**：同一標的用 **`hexstrike_lab pipeline`**（任一 profile）跑出的 **JSON／manifest** 與本 Lab **質性報告**的差異。
 
+### Track C 加強（P4 — Attack chain）
+
+- 報告內必含 **foothold → 提權或橫向（擇一）→ 影響** 的 **三格表**（每格 1–2 句 + 證據指到 log／截圖）。
+- （選）**MITRE ATT&CK** 技術 ID **至少 2 個**對照到上述階段。
+- （選）若靶場提供 **flag／objective**：列入驗收；否則以講師簽字之「中止點分析」替代。
+
 ## 授權與環境
 
 - 靶機僅限講師於實驗室內提供之 IP；**禁止**學員自帶目標。
@@ -31,7 +37,7 @@
 
 ## 驗收標準
 
-- Markdown 報告一份 + **hexstrike_lab** 產物路徑截圖（`report.json` 或 `manifest.json`）+ **半頁對照文**。
+- Markdown 報告一份 + **hexstrike_lab** 產物路徑截圖（`report.json` 或 `manifest.json`）+ **半頁對照文** + **Track C 三格 attack-chain 表**（及選修 flag／ATT&CK）。
 - 口試：若客戶只要「合規掃描證據」，你會交哪一份產出？
 
 ## 講師提醒

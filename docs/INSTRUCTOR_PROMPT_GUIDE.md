@@ -43,6 +43,12 @@ Instead:
 - **Lab10** reverse shell: **optional**; default grade on code review + JSON output only.
 - **Lab11** capstone: whitelist target IP issued by instructor only.
 
+### Track C (Pentest depth — see [TRACK_C_PENTEST.md](TRACK_C_PENTEST.md))
+
+- **P1 / Lab07**: AI-generated recon scripts must be **human-trimmed** before execution; re-check argv against RoE.
+- **P2 / Lab09**: Burp/raw-request evidence is **manual proof**; do not accept generic AI prose without a saved request excerpt.
+- **P3–P4 / Lab10–11**: Attack-chain table and optional flags require **mapped logs**; same hallucination rules as Lab11 Track B.
+
 ---
 
 ## Key Teaching Message
