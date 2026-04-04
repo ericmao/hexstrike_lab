@@ -242,6 +242,7 @@ stdout 另會印出含 `status`、`run_id`、`paths` 的小型 JSON。
 
 - **`docs/CURSOR_PROMPT_PACK.md`** — Track A 階段 + Track B 表與短提示。
 - **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — 何時給提示；Lab08–11 **安全 gate**；Track C 講師備註。
+- **`docs/INSTRUCTOR_ANSWER_OUTLINE.md`** — **講師專用**預期產物、及格／優良線索、口試抓題（非學員標準答案）。
 
 ---
 
@@ -250,6 +251,7 @@ stdout 另會印出含 `status`、`run_id`、`paths` 的小型 JSON。
 - [docs/RUNBOOK_KALI.md](docs/RUNBOOK_KALI.md) — Kali 安裝與範例
 - [docs/DEPLOY_KALI.md](docs/DEPLOY_KALI.md) — rsync／Ansible 部署；Ollama／llama3；`scripts/verify_kali_lab_env.sh`；與 hexstrike-ai MCP 並存
 - [docs/TRACK_C_PENTEST.md](docs/TRACK_C_PENTEST.md) — 選修滲透加深模組（P1–P5）
+- [docs/INSTRUCTOR_ANSWER_OUTLINE.md](docs/INSTRUCTOR_ANSWER_OUTLINE.md) — 講師專用解答大綱／評分對照
 - [docs/EXECUTION_LAYER.md](docs/EXECUTION_LAYER.md) — 適配器、安全預設、擴充點
 - [SECURITY.md](SECURITY.md) — 負責任使用說明
 

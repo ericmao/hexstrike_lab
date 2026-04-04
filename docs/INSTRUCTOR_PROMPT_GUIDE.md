@@ -1,5 +1,7 @@
 # Instructor Prompt Guide
 
+**Answer outline & rubric (instructor-only):** [INSTRUCTOR_ANSWER_OUTLINE.md](INSTRUCTOR_ANSWER_OUTLINE.md)
+
 ## Teaching Strategy
 
 Do **NOT** give prompts immediately.
