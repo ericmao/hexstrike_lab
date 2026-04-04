@@ -247,6 +247,7 @@ stdout 另會印出含 `status`、`run_id`、`paths` 的小型 JSON。
 ## 延伸文件
 
 - [docs/RUNBOOK_KALI.md](docs/RUNBOOK_KALI.md) — Kali 安裝與範例
+- [docs/DEPLOY_KALI.md](docs/DEPLOY_KALI.md) — rsync／Ansible 部署；與 hexstrike-ai MCP 並存
 - [docs/EXECUTION_LAYER.md](docs/EXECUTION_LAYER.md) — 適配器、安全預設、擴充點
 - [SECURITY.md](SECURITY.md) — 負責任使用說明
 

@@ -253,6 +253,7 @@ Central files:
 ## Further documentation
 
 - [docs/RUNBOOK_KALI.md](docs/RUNBOOK_KALI.md) — Kali setup and examples
+- [docs/DEPLOY_KALI.md](docs/DEPLOY_KALI.md) — rsync / Ansible deploy; coexistence with hexstrike-ai MCP
 - [docs/EXECUTION_LAYER.md](docs/EXECUTION_LAYER.md) — adapters, safety defaults, extension points
 - [SECURITY.md](SECURITY.md) — responsible use
 

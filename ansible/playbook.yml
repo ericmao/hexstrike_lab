@@ -1,0 +1,47 @@
+---
+# Deploy hexstrike_lab on Kali via git (authorized lab hosts only).
+# Coexists with hexstrike-ai: separate directory, separate venv, no port overlap for CLI.
+- name: Deploy hexstrike_lab on Kali
+  hosts: kali_lab
+  vars:
+    hexstrike_lab_repo: "https://github.com/ericmao/hexstrike_lab.git"
+    hexstrike_lab_dest: "{{ ansible_env.HOME }}/hexstrike_lab"
+    hexstrike_lab_version: main
+  tasks:
+    - name: Install base packages
+      become: true
+      ansible.builtin.apt:
+        name:
+          - python3
+          - python3-venv
+          - python3-pip
+          - git
+        state: present
+        update_cache: true
+
+    - name: Clone or update hexstrike_lab
+      ansible.builtin.git:
+        repo: "{{ hexstrike_lab_repo }}"
+        dest: "{{ hexstrike_lab_dest }}"
+        version: "{{ hexstrike_lab_version }}"
+        update: true
+
+    - name: Install Python dependencies into venv
+      ansible.builtin.pip:
+        requirements: "{{ hexstrike_lab_dest }}/requirements.txt"
+        virtualenv: "{{ hexstrike_lab_dest }}/.venv"
+        virtualenv_command: python3 -m venv
+
+    - name: Verify CLI
+      ansible.builtin.command:
+        argv:
+          - "{{ hexstrike_lab_dest }}/.venv/bin/python"
+          - "-m"
+          - "hexstrike_lab"
+          - "--help"
+      register: hex_help
+      changed_when: false
+
+    - name: Show help head
+      ansible.builtin.debug:
+        msg: "{{ hex_help.stdout_lines[:8] | join('\n') }}"
