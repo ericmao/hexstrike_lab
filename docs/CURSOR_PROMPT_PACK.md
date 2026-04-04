@@ -15,6 +15,25 @@ This document provides phase-based prompts for building an AI-assisted security 
 | Phase 4 | Lab04 | RFP → scanning |
 | Phase 5 | Lab05 | RFP → pentest |
 
+### Track B — Lab06+ (hexstrike-ai MCP; external repo)
+
+Uses **[hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)** (MCP + `hexstrike_server.py`). **Not included in this repository.** Operate only in **authorized lab** environments. If your course uses a custom HexStrike CLI instead, see **課程環境變體** in each `labs/lab06+` file.
+
+| Lab | Focus |
+|-----|--------|
+| Lab06 | MCP connectivity + server health + optional Ollama |
+| Lab07 | Structured recon + **command traceability** |
+| Lab08 | Scanner JSON analysis + **instructor-gated** verification |
+| Lab09 | DVWA / authorized web testing + ethics |
+| Lab10 | Python repair + JSON output + optional isolated shell demo |
+| Lab11 | Capstone + Markdown report + compare `hexstrike_lab pipeline` |
+| Lab12 | Rules of Engagement (RoE) |
+| Lab13 | Map MCP/tool output to `evidence_record` |
+| Lab14 | CI dry-run + `validate_scan_document` gate |
+| Lab15 | Elective: cloud, bug-bounty rules, purple team, MCP–pipeline bridge |
+
+Full steps and prompts: [`labs/README.md`](../labs/README.md) and `labs/labNN/cursor_prompts.md`.
+
 ---
 
 ## General Rules
@@ -112,3 +131,39 @@ Explain:
 - architecture
 - module responsibilities
 - extension points
+
+---
+
+## Track B — Lab06+ (summary prompts for Cursor)
+
+Use **after** Track A context is clear. Do not paste full lab sheets; open `labs/labNN/cursor_prompts.md` for 學習目標、授權、驗收.
+
+### Lab06 — Environment
+Help me verify hexstrike-ai MCP: checklist for Python path, server port, `hexstrike_mcp.py` args, and `GET /health`. Draw Client → MCP → HTTP → server.
+
+### Lab07 — Recon
+Given whitelist CIDR `<paste>`, draft an RTF-style prompt (role, task, table output). How do I trace actual argv from server logs?
+
+### Lab08 — Reports
+Summarize this Nuclei JSON severity distribution only (no live requests). What fields belong in an `evidence_record`-style row?
+
+### Lab09 — DVWA
+Explain filter behavior at Medium without running attacks. When are sqlmap tamper scripts justified under RoE?
+
+### Lab10 — Code
+List Python 2→3 breaking lines in this snippet before rewriting. Require JSON output schema `status`, `detail`, `timestamp`.
+
+### Lab11 — Capstone
+Outline a pentest report: required sections and evidence per section. Compare to `hexstrike_lab` `pipeline` JSON deliverables.
+
+### Lab12 — RoE
+Review this RoE draft for missing abort criteria and scope ambiguity (no offensive steps).
+
+### Lab13 — Evidence
+Map this log line to `hexstrike.pentest_evidence.v1` fields; list missing required fields.
+
+### Lab14 — CI
+Write a GitHub Actions step: run `pipeline` dry-run and validate latest `report.json` with `validate_scan_document`.
+
+### Lab15 — Elective
+(Choose sub-track) Design only: MCP invoking `python -m hexstrike_lab pipeline` with profile allowlist and no `shell=True`.

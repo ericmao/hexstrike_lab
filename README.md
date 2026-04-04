@@ -238,9 +238,15 @@ Stdout prints a small JSON object with `status`, `run_id`, and `paths`.
 
 ## Lab learning materials
 
-- **`docs/CURSOR_PROMPT_PACK.md`** — phase-based prompts for building the framework with Cursor.
-- **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — when to give prompts in class; pedagogy notes.
-- **`labs/lab00` … `labs/lab05`** — `cursor_prompts.md` per lab.
+Two tracks (see [`labs/README.md`](labs/README.md)):
+
+- **Track A — `lab00` … `lab05`:** build and use **this** repo (`hexstrike_lab` CLI, adapters, pipeline, RFP/pentest YAML, evidence).
+- **Track B — `lab06` … `lab15`:** **[hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)** MCP + authorized lab scenarios, governance (RoE), evidence mapping, CI gates, and electives. **Not vendored here**; follow each `labs/labNN/cursor_prompts.md` **課程環境變體** if your course uses a different HexStrike CLI.
+
+Central files:
+
+- **`docs/CURSOR_PROMPT_PACK.md`** — Track A phases + Track B table and short prompts.
+- **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — when to give prompts; **Track B safety gates** for Lab08–11.
 
 ---
 

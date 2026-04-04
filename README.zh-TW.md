@@ -232,9 +232,15 @@ stdout 另會印出含 `status`、`run_id`、`paths` 的小型 JSON。
 
 ## 實驗與教材
 
-- **`docs/CURSOR_PROMPT_PACK.md`** — 分階段 Cursor 提示，用於建構本框架。
-- **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — 課堂上何時給提示、教學策略。
-- **`labs/lab00` … `labs/lab05`** — 各實驗的 `cursor_prompts.md`。
+雙軌說明見 [`labs/README.md`](labs/README.md)：
+
+- **Track A（lab00 … lab05）：** 建構並使用**本儲存庫**之 `hexstrike_lab`（CLI、適配器、Pipeline、RFP／滲測 YAML、證據）。
+- **Track B（lab06 … lab15）：** 外部 **[hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)** MCP 與授權實驗情境、RoE、證據對照、CI gate、選修。**本 repo 未內嵌**該專案；若課程使用自訂 HexStrike CLI，請以各 `labs/labNN/cursor_prompts.md` 的 **課程環境變體**為準。
+
+核心文件：
+
+- **`docs/CURSOR_PROMPT_PACK.md`** — Track A 階段 + Track B 表與短提示。
+- **`docs/INSTRUCTOR_PROMPT_GUIDE.md`** — 何時給提示；Lab08–11 **安全 gate**。
 
 ---
 
