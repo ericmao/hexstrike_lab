@@ -37,6 +37,15 @@ Run inside your **local** `hexstrike_lab` clone (directory that contains `config
 rsync -avz -e ssh --progress --exclude '.git/' --exclude '.venv/' --exclude 'output/' --exclude '__pycache__/' --exclude '.pytest_cache/' ./ kali@192.168.11.128:~/hexstrike_lab/
 ```
 
+**Password auth (lab VM default is often `kali` / `kali`):** install `sshpass` (macOS: often `brew install sshpass` or a Homebrew tap that ships `sshpass`), then avoid putting the password in the shell history by using the environment variable:
+
+```bash
+export SSHPASS='kali'   # lab only — change the VM password and use SSH keys for anything real
+sshpass -e rsync -avz -e "ssh -o StrictHostKeyChecking=accept-new -o PreferredAuthentications=password -o PubkeyAuthentication=no" \
+  --progress --exclude '.git/' --exclude '.venv/' --exclude 'output/' --exclude '__pycache__/' --exclude '.pytest_cache/' \
+  ./ kali@192.168.11.128:~/hexstrike_lab/
+```
+
 Then on Kali:
 
 ```bash
@@ -61,7 +70,9 @@ From a machine with Ansible installed:
 cd ansible
 cp inventory.example.ini inventory.ini
 # Edit inventory.ini: set ansible_host=192.168.11.128 ansible_user=kali
-ansible-playbook -i inventory.ini playbook.yml
+ansible-playbook -i inventory.ini playbook.yml --ask-pass
+# When prompted, enter the SSH password (lab default often `kali`).
+# Prefer SSH keys: ssh-copy-id kali@192.168.11.128 then omit --ask-pass.
 ```
 
 This **git-clones** (or updates) `hexstrike_lab` on the target and creates `.venv` + `pip install -r requirements.txt`. It does **not** install hexstrike-ai; clone that repo separately per [hexstrike-ai](https://github.com/0x4m4/hexstrike-ai).
