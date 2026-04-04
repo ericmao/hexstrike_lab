@@ -7,6 +7,18 @@ from typing import Any
 from hexstrike_lab.execution.base import ToolAdapter, ToolResult
 
 
+def _parsed_or_fallback(adapter: ToolAdapter, raw: ToolResult) -> dict[str, Any]:
+    try:
+        return adapter.normalize_result(raw)
+    except Exception as exc:  # noqa: BLE001 — never fail the runner on parser bugs
+        return {
+            "schema": "hexstrike.adapter.v1",
+            "adapter": adapter.name,
+            "kind": "normalize_error",
+            "message": str(exc),
+        }
+
+
 def run_adapter(
     adapter: ToolAdapter,
     target: str,
@@ -36,6 +48,12 @@ def run_adapter(
                 stderr="",
                 message=str(e),
                 command=[],
+                parsed={
+                    "schema": "hexstrike.adapter.v1",
+                    "adapter": adapter.name,
+                    "kind": "validation_error",
+                    "message": str(e),
+                },
             )
 
         try:
@@ -45,6 +63,7 @@ def run_adapter(
                 text=True,
                 timeout=timeout_sec,
                 check=False,
+                shell=False,
             )
             dur = (time.perf_counter() - t0) * 1000
             raw = ToolResult(
@@ -57,17 +76,32 @@ def run_adapter(
                 stderr=proc.stderr or "",
                 command=cmd,
             )
-            raw.parsed = adapter.normalize_result(raw)
+            raw.parsed = _parsed_or_fallback(adapter, raw)
             if raw.status == "ok" or attempt >= retries:
                 return raw
             last_err = f"exit {proc.returncode}"
             time.sleep(min(2**attempt, 8.0))
+        except OSError as e:
+            dur = (time.perf_counter() - t0) * 1000
+            raw = ToolResult(
+                adapter=adapter.name,
+                target=norm_target,
+                status="error",
+                exit_code=None,
+                duration_ms=dur,
+                stdout="",
+                stderr="",
+                message=f"Execution failed: {e}",
+                command=cmd,
+            )
+            raw.parsed = _parsed_or_fallback(adapter, raw)
+            return raw
         except subprocess.TimeoutExpired as e:
             dur = (time.perf_counter() - t0) * 1000
             out = e.stdout.decode() if isinstance(e.stdout, bytes) else (e.stdout or "")
             err = e.stderr.decode() if isinstance(e.stderr, bytes) else (e.stderr or "")
             if attempt >= retries:
-                return ToolResult(
+                raw = ToolResult(
                     adapter=adapter.name,
                     target=norm_target,
                     status="timeout",
@@ -77,12 +111,13 @@ def run_adapter(
                     stderr=err,
                     message=f"Timeout after {timeout_sec}s",
                     command=cmd,
-                    parsed={},
                 )
+                raw.parsed = _parsed_or_fallback(adapter, raw)
+                return raw
             last_err = "timeout"
         time.sleep(min(2**attempt, 8.0))
 
-    return ToolResult(
+    raw = ToolResult(
         adapter=adapter.name,
         target=target,
         status="error",
@@ -93,3 +128,10 @@ def run_adapter(
         message=last_err or "retry exhausted",
         command=cmd,
     )
+    raw.parsed = {
+        "schema": "hexstrike.adapter.v1",
+        "adapter": adapter.name,
+        "kind": "retry_exhausted",
+        "message": raw.message,
+    }
+    return raw

@@ -24,6 +24,8 @@ def test_format_pipeline_markdown_sections():
     }
     md = format_pipeline_markdown(doc)
     assert "## Executive summary" in md
+    assert "### Workflow steps" in md
+    assert "### Findings summary" in md
     assert "Discovered services" in md
     assert "Web findings" in md
     assert "Execution metadata" in md

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from hexstrike_lab.adapters.text_parsers import parse_nikto_stdout
 from hexstrike_lab.execution.base import ToolAdapter, ToolResult
 from hexstrike_lab.execution.targets import validate_lab_target
 
@@ -32,8 +33,24 @@ class NiktoAdapter(ToolAdapter):
         ]
 
     def normalize_result(self, raw: ToolResult) -> dict[str, Any]:
+        tool = parse_nikto_stdout(raw.stdout)
         return {
-            "summary": "nikto web check (lab)",
-            "lines": len(raw.stdout.splitlines()),
-            "preview": raw.stdout[:2000],
+            "schema": "hexstrike.adapter.v1",
+            "adapter": self.name,
+            "run": {
+                "status": raw.status,
+                "exit_code": raw.exit_code,
+                "message": raw.message,
+            },
+            "summary": {
+                "kind": "nikto_web_check",
+                "stdout_lines": len(raw.stdout.splitlines()),
+                "finding_count": tool["finding_count"],
+                "truncated": tool["truncated"],
+            },
+            "data": tool,
+            "artifacts": {
+                "stdout_preview": raw.stdout[:2000],
+                "stderr_preview": (raw.stderr or "")[:1000],
+            },
         }

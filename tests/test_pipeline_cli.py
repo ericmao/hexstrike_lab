@@ -36,5 +36,7 @@ def test_pipeline_dry_run_writes_artifacts(project_root: Path, tmp_path: Path, m
     assert summary["status"] == "ok"
     run_id = summary["run_id"]
     assert (out / "json" / run_id / "report.json").is_file()
+    assert (out / "json" / run_id / "manifest.json").is_file()
     assert (out / "reports" / run_id / "summary.md").is_file()
     assert (out / "integration" / f"cti_export_{run_id}.ndjson").is_file()
+    assert "manifest" in summary["paths"]

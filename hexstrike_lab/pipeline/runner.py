@@ -98,9 +98,48 @@ def run_pipeline(args: Any) -> int:
     cti_path = integration_dir / f"cti_export_{run_id}.ndjson"
     export_cti_stub(run_id=run_id, doc=doc, output_path=cti_path)
 
+    manifest_path = json_dir / "manifest.json"
+    manifest: dict[str, Any] = {
+        "run_id": run_id,
+        "target": target,
+        "profile": profile.get("name", args.profile),
+        "execute": execute,
+        "pipeline": {
+            "version": 1,
+            "phases": [
+                "environment_precheck",
+                "load_config",
+                "load_profile",
+                "orchestrator",
+                "validate_schema",
+                "write_raw",
+                "write_report_json",
+                "write_markdown",
+                "write_cti_stub",
+                "write_manifest",
+            ],
+        },
+        "counts": {
+            "orchestration_steps": len(orchestration.get("steps", [])),
+            "findings": len(doc.get("findings", [])),
+        },
+        "paths": {
+            "raw_dir": str(raw_dir),
+            "report_json": str(json_path),
+            "summary_md": str(md_path),
+            "manifest_json": str(manifest_path),
+            "cti_stub": str(cti_path),
+        },
+    }
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
     print(json.dumps({"status": "ok", "run_id": run_id, "paths": {
         "raw": str(raw_dir),
         "json": str(json_path),
+        "manifest": str(manifest_path),
         "report": str(md_path),
         "cti_stub": str(cti_path),
     }}, indent=2))

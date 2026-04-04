@@ -1,0 +1,48 @@
+# RFP / SOW scanning requirements → hexstrike_lab workflow (authorized lab only).
+# This file documents traceability; tools run via profiles.yaml + pipeline/assess.
+
+workflow:
+  id: rfp_lab_vuln_scan_v1
+  profile: rfp_automated_scan
+  description: >
+    Service discovery with version detection, then conditional web scanning when
+    common HTTP/HTTPS ports are observed open. Produces schema-valid JSON, markdown,
+    raw tool transcripts, and manifest via `pipeline`.
+
+requirements:
+  - id: R-DISC-01
+    category: network_discovery
+    summary: Enumerate listening services on approved in-scope targets.
+    satisfies_with:
+      - tool: nmap
+        adapter: nmap
+        profile_step_index: 0
+        notes: "-sV-style service fingerprint; ports tuned for typical lab/RFP scope."
+
+  - id: R-WEB-01
+    category: web_vulnerability_scanning
+    summary: Run web checks when HTTP or HTTPS surface is present (avoid blind nikto).
+    satisfies_with:
+      - tool: nikto
+        adapter: nikto
+        profile_step_index: 1
+        notes: >
+          Executed only if prior nmap step is ok and open_ports intersect
+          run_when.open_ports_any_of (see profiles.yaml).
+
+  - id: R-OUT-01
+    category: reporting
+    summary: Deliver machine-readable and human-readable results per run.
+    satisfies_with:
+      - artifacts:
+          - report.json
+          - summary.md
+          - manifest.json
+          - raw/step_*.txt
+        notes: Produced by `python -m hexstrike_lab pipeline ...`.
+
+structured_outputs:
+  - path_glob: output/json/*/report.json
+    contains: [schema_version, target, findings, orchestration]
+  - path_glob: output/reports/*/summary.md
+    contains: [workflow_table, findings_summary, services_section]

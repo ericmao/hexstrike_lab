@@ -38,7 +38,12 @@ class ToolResult:
 
 
 class ToolAdapter(ABC):
-    """Plugin interface: one external security tool."""
+    """Plugin interface: one external security tool.
+
+    Implementations build argv lists (no shell), validate targets, and return
+    JSON-serializable dicts from ``normalize_result`` for the ``parsed`` field
+    on ``ToolResult`` / CLI output.
+    """
 
     name: str
 

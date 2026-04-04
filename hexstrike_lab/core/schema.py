@@ -4,6 +4,8 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
+from hexstrike_lab.core.evidence_schema import PENTEST_EVIDENCE_JSON_SCHEMA
+
 SCAN_DOCUMENT_SCHEMA: dict[str, Any] = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "HexStrikeLabScanDocument",
@@ -51,8 +53,10 @@ SCAN_DOCUMENT_SCHEMA: dict[str, Any] = {
                 "title": {"type": "string"},
                 "description": {"type": "string"},
                 "evidence": {"type": "object", "additionalProperties": True},
+                "evidence_record": {"$ref": "#/$defs/pentest_evidence"},
             },
-        }
+        },
+        "pentest_evidence": PENTEST_EVIDENCE_JSON_SCHEMA,
     },
 }
 

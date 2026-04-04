@@ -12,9 +12,19 @@ from hexstrike_lab.core.logging_setup import setup_logging
 from hexstrike_lab.core.profiles import get_profile, load_profile_bundle
 from hexstrike_lab.core.schema import validate_scan_document
 from hexstrike_lab.execution.orchestrator import ExecutionOrchestrator
+from hexstrike_lab.reports.markdown_formatter import generate_markdown_report
 from hexstrike_lab.reports.normalizer import ReportNormalizer
 from hexstrike_lab.scanners.network_discovery import NetworkDiscoveryScanner
 from hexstrike_lab.scanners.web_metadata import WebMetadataScanner
+
+_PROFILE_CHOICES = (
+    "quick",
+    "web",
+    "full",
+    "adaptive_web",
+    "rfp_automated_scan",
+    "pentest_lab",
+)
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -51,7 +61,7 @@ def _build_parser() -> argparse.ArgumentParser:
     assess.add_argument(
         "--profile",
         required=True,
-        choices=["quick", "web", "full"],
+        choices=list(_PROFILE_CHOICES),
         help="Execution profile from configs/profiles.yaml.",
     )
     assess.add_argument(
@@ -85,7 +95,7 @@ def _build_parser() -> argparse.ArgumentParser:
     pipe.add_argument(
         "--profile",
         required=True,
-        choices=["quick", "web", "full"],
+        choices=list(_PROFILE_CHOICES),
         help="Profile from configs/profiles.yaml.",
     )
     pipe.add_argument("--config", type=Path, default=None)
@@ -100,6 +110,28 @@ def _build_parser() -> argparse.ArgumentParser:
         "--execute",
         action="store_true",
         help="Run real tools (otherwise dry-run; artifacts still written).",
+    )
+
+    rep = sub.add_parser(
+        "report",
+        help="Generate markdown from a saved scan document (e.g. pipeline report.json).",
+    )
+    rep_sub = rep.add_subparsers(dest="report_cmd", required=True)
+    r_from = rep_sub.add_parser(
+        "from-json",
+        help="Validate JSON against the scan schema and write summary.md-style markdown.",
+    )
+    r_from.add_argument(
+        "--input",
+        type=Path,
+        required=True,
+        help="Path to report.json produced by the pipeline.",
+    )
+    r_from.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="Markdown output path (default: print to stdout).",
     )
     return p
 
@@ -161,6 +193,19 @@ def main(argv: list[str] | None = None) -> int:
         from hexstrike_lab.pipeline.runner import run_pipeline
 
         return run_pipeline(args)
+
+    if args.command == "report":
+        if args.report_cmd != "from-json":
+            return 1
+        doc = json.loads(args.input.read_text(encoding="utf-8"))
+        validate_scan_document(doc)
+        md = generate_markdown_report(doc)
+        if args.output is not None:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(md, encoding="utf-8")
+        else:
+            sys.stdout.write(md)
+        return 0
 
     return 1
 

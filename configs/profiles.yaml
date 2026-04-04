@@ -47,3 +47,88 @@ profiles:
           ssl: true
           port: 443
           maxtime_sec: 300
+
+  # Discovery first; run nikto only if nmap shows a common web port open.
+  adaptive_web:
+    name: adaptive_web
+    steps:
+      - adapter: nmap
+        timeout_sec: 120
+        retries: 0
+        options:
+          ports: "80,443,8080,8443"
+          timing: "3"
+          version_intensity: 5
+      - adapter: nikto
+        run_when:
+          after_adapter: nmap
+          open_ports_any_of: [80, 443, 8080, 8443]
+        timeout_sec: 300
+        retries: 0
+        options:
+          ssl: true
+          port: 443
+          maxtime_sec: 120
+
+  # Lab 04 / RFP-style automated scan: broad discovery, conditional web pass.
+  rfp_automated_scan:
+    name: rfp_automated_scan
+    steps:
+      - adapter: nmap
+        timeout_sec: 180
+        retries: 1
+        options:
+          ports: "22,25,53,80,110,143,443,445,993,995,1433,3306,3389,5432,8080,8443,8888,9000"
+          timing: "3"
+          version_intensity: 5
+      - adapter: nikto
+        run_when:
+          after_adapter: nmap
+          open_ports_any_of: [80, 443, 8080, 8443, 8888, 8000]
+        timeout_sec: 600
+        retries: 1
+        options:
+          ssl: true
+          port: 443
+          maxtime_sec: 300
+
+  # Lab 05 — controlled multi-step lab workflow (recon → enum → conditional web).
+  pentest_lab:
+    name: pentest_lab
+    steps:
+      - adapter: nmap
+        workflow_step_id: PT-DISC-01
+        pentest_phase: reconnaissance
+        objective: Baseline service discovery on approved in-scope targets
+        timeout_sec: 180
+        retries: 1
+        options:
+          ports: "22,53,80,443,445,993,995,1433,3306,3389,5432,8080,8443"
+          timing: "3"
+          version_intensity: 5
+      - adapter: nmap
+        workflow_step_id: PT-ENUM-01
+        pentest_phase: enumeration
+        objective: Focused fingerprint of web-related ports when exposure exists
+        run_when:
+          after_adapter: nmap
+          open_ports_any_of: [80, 443, 8080, 8443, 8000, 8888]
+        timeout_sec: 240
+        retries: 0
+        options:
+          ports: "80,443,8080,8443,8000,8888"
+          timing: "4"
+          version_intensity: 7
+      - adapter: nikto
+        workflow_step_id: PT-WEB-01
+        pentest_phase: web_assessment
+        objective: Non-destructive web checks when HTTP/S services are observed
+        run_when:
+          after_adapter: nmap
+          open_ports_any_of: [80, 443, 8080, 8443, 8000, 8888]
+        timeout_sec: 600
+        retries: 1
+        options:
+          ssl: true
+          port: 443
+          maxtime_sec: 300
