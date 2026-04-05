@@ -4,6 +4,8 @@
 **回索引：** [`INSTRUCTOR_ANSWER_OUTLINE.md`](../INSTRUCTOR_ANSWER_OUTLINE.md)  
 **Track C：** 見 [`TRACK_C_PENTEST.md`](../TRACK_C_PENTEST.md) P1
 
+**參考範例（實測 + 範例繳交稿，標的 `192.168.1.203`）：** [`labs/lab07/examples/README.md`](../../labs/lab07/examples/README.md)
+
 ## 預期產物
 
 - 掃描摘要表（白名單內目標）。

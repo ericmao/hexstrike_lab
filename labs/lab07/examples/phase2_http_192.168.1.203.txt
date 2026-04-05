@@ -1,0 +1,8 @@
+# Phase 2 — 單一主機 80/tcp / HTTP 連線嘗試（授權標的 192.168.1.203）
+# Kali: 192.168.11.128
+# curl -sS -m 5 -o /dev/null -w "%{http_code}\n" http://192.168.1.203/
+
+curl: (7) Failed to connect to 192.168.1.203 port 80 after 46 ms: Could not connect to server
+HTTP 000
+
+# 結論（實驗紀錄用）：80/tcp 為 filtered，與 nmap 一致；未對其他 URL 路徑做目錄爆破（維持單一主機／單一服務埠敘述範圍）。
