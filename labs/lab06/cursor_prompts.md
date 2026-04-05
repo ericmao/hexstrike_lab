@@ -20,7 +20,8 @@
 1. 依上游文件 clone [hexstrike-ai](https://github.com/0x4m4/hexstrike-ai)、建立 venv、`pip install -r requirements.txt`。
 2. 啟動：`python3 hexstrike_server.py`（埠號依課程約定，常見 `8888`）。
 3. 驗證：`curl http://localhost:<port>/health`（或課程指定方式）。
-4. 設定 MCP：將 `hexstrike_mcp.py` 與 `--server http://localhost:<port>` 寫入客戶端設定（見上游 README「Claude Desktop / Cursor」小節）。
+4. 設定 MCP：將 `hexstrike_mcp.py` 與 `--server http://localhost:<port>` 寫入客戶端設定（見上游 README「Claude Desktop / Cursor」小節）。  
+   - **Claude Code（Kali）JSON 範例與 NDR 拓樸（標的 192.168.1.203）：** [`labs/lab06/examples/`](examples/CLAUDE_CODE_MCP_JSON.md)（內含 [`claude_code_mcp_hexstrike.example.json`](examples/claude_code_mcp_hexstrike.example.json)）。
 5. **Ollama + llama3（Kali 上）：**  
    `curl -fsSL https://ollama.com/install.sh | sh` → `ollama pull llama3` → `ollama run llama3 "Reply with exactly: OK"`。  
    確認服務監聽（常見 `11434`）；若 hexstrike-ai 需接 Ollama，依**上游 README**設定 base URL。  

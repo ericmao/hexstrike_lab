@@ -3,6 +3,10 @@
 **學員教材：** [`labs/lab06/cursor_prompts.md`](../../labs/lab06/cursor_prompts.md)  
 **回索引：** [`INSTRUCTOR_ANSWER_OUTLINE.md`](../INSTRUCTOR_ANSWER_OUTLINE.md)
 
+## 參考範例（repo 內）
+
+- Claude Code MCP JSON、**192.168.1.203 + NDR bridge** 拓樸說明：[`labs/lab06/examples/`](../../labs/lab06/examples/CLAUDE_CODE_MCP_JSON.md)
+
 ## 預期產物
 
 - 連線示意圖（Client → MCP → HTTP server →（選）Ollama）。

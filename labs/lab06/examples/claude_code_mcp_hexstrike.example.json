@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "hexstrike-ai": {
+      "command": "/home/kali/hexstrike-ai/hexstrike-env/bin/python3",
+      "args": [
+        "/home/kali/hexstrike-ai/hexstrike_mcp.py",
+        "--server",
+        "http://127.0.0.1:8888"
+      ]
+    }
+  }
+}
